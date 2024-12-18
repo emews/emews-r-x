@@ -1,0 +1,48 @@
+
+{% set name = "emews-r-base" %}
+{% set version = "85879" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  # User needs to manually update this:
+  path: /Users/woz/proj/r-svn-clean
+
+build:
+  number: 1
+  # Environment variables for build.sh must be listed here,
+  # normal environment inheritance does not happen!
+  script_env:
+    - PLATFORM=osx-arm64
+
+# Remember to sync any dependency changes here with conda-install.sh
+requirements:
+  build:
+    - libcurl
+    - pcre2
+    - xz
+    - gfortran
+
+  run:
+    - libcurl
+    - pcre2
+    - xz
+    - gfortran
+
+test:
+  commands:
+    - echo
+    - echo "meta.yaml test commands:"
+    - which R Rscript
+    - R -e 'cat("R-SUCCESS:", 42, "\n")'
+
+about:
+  home: https://github.com/emews/emews-r-base
+  license: Apache License 2.0
+  summary: EMEWS build for R
+
+extra:
+  recipe-maintainers:
+    - swift-t
