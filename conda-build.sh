@@ -12,7 +12,8 @@ set -eu
 #     specified in meta.yaml:source:path:
 
 # Hard-coded for now- on other systems, we use community R packages
-PLATFORM=osx-arm64
+# Also set in meta.yaml
+PLATFORM=${PLATFORM:-osx-arm64}
 
 help()
 {
@@ -85,6 +86,7 @@ if [[ -f $LOG ]] {
   (
     log "using python: " $( which python )
     log "using conda:  " $( which conda  )
+    log "PLATFORM:     " $PLATFORM
     print
     conda env list
     print

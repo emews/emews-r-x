@@ -1,5 +1,5 @@
 
-= emews-r-base
+= emews-r-x
 
 A simple Anaconda package with unmodified R from SVN for use with EMEWS.
 
@@ -7,4 +7,9 @@ Only necessary for platform `osx-arm64`, due to a memory error in the official A
 
 == Notes
 
-. Remember to update `meta.yaml:source:path:` .
+Remember to:
+. Update PLATFORM
+.. in conda-build.sh
+.. in meta.yaml
+. Update `meta.yaml:source:path:`
+. Install xcrun

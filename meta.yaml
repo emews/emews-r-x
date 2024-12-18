@@ -8,14 +8,14 @@ package:
 
 source:
   # User needs to manually update this:
-  path: /Users/woz/proj/r-svn-clean
+  path: /home/woz/proj/r-svn-clean
 
 build:
   number: 1
   # Environment variables for build.sh must be listed here,
   # normal environment inheritance does not happen!
   script_env:
-    - PLATFORM=osx-arm64
+    - PLATFORM=linux-64
 
 # Remember to sync any dependency changes here with conda-install.sh
 requirements:
@@ -24,12 +24,14 @@ requirements:
     - pcre2
     - xz
     - gfortran
+    - zlib
 
   run:
     - libcurl
     - pcre2
     - xz
     - gfortran
+    - zlib
 
 test:
   commands:
