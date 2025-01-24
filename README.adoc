@@ -13,3 +13,8 @@ Remember to:
 .. in meta.yaml
 . Update `meta.yaml:source:path:`
 . Install xcrun
+
+=== For SSH
+
+. Use `ssh -X`
+. Set `ForwardX11Trusted yes`
