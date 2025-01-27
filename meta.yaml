@@ -8,7 +8,7 @@ package:
 
 source:
   # User needs to manually update this:
-  path: /home/woz/proj/r-svn-clean
+  path: {{ environ.get('R_SVN', 'UNSET_R_SVN') }}
 
 build:
   number: 1

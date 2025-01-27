@@ -36,6 +36,33 @@ if (( ${#HELP} )) {
 # Get this directory
 THIS=${0:A:h}
 
+if (( ${#*} != 1 )) {
+  print "Provide R SVN location!"
+  return 1
+}
+# This is substituted into meta.yaml:
+export R_SVN=$1
+
+if [[ ! -d $R_SVN ]] {
+  print "does not exist: R_SVN=$R_SVN"
+  return 1
+}
+
+if ! grep -q "R_HOME" $R_SVN/Makefile.in
+then
+  print "wrong directory: R_SVN=$R_SVN"
+  return 1
+fi
+
+if [[ $PLATFORM =~ osx-* ]] {
+  if [[ $(uname) != "Darwin" ]] {
+    print "platform mismatch!"
+    print "uname: $(uname)"
+    print "PLATFORM=$PLATFORM"
+    return 1
+  }
+}
+
 DATE_FMT_S="%D{%Y-%m-%d} %D{%H:%M:%S}"
 log()
 # General-purpose log line
@@ -81,7 +108,7 @@ if [[ -f $LOG ]] {
 }
 
 {
-  log "CONDA BUILD: START: ${(%)DATE_FMT_S}"
+  log "CONDA BUILD: START:"
   print
   (
     log "using python: " $( which python )
@@ -91,15 +118,21 @@ if [[ -f $LOG ]] {
     conda env list
     print
 
+    BUILD_ARGS=(
+      -c conda-forge
+      --dirty
+      --keep-old-work
+      # --no-remove-work-dir
+      --prefix-length 128
+      .
+    )
+
     set -x
     # This purge-all is extremely important:
     conda build purge-all
 
     # Build the package!
-    conda build \
-          -c conda-forge \
-          --dirty \
-          .
+    conda build $BUILD_ARGS
   )
   log "CONDA BUILD: STOP: ${(%)DATE_FMT_S}"
 } |& tee $LOG

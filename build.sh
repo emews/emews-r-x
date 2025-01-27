@@ -13,7 +13,10 @@ set -o pipefail
 # PREFIX is provided by Conda
 
 TIMESTAMP=$( date '+%Y-%m-%d %H:%M:%S' )
+
+echo
 echo "BUILD.SH START $TIMESTAMP"
+echo
 
 show()
 # Report shell value, aligned
@@ -102,26 +105,38 @@ do-configure()
   )
 }
 
-# Configure it!
+date-secs()
 {
-  echo "CONFIGURE R START: $( date '+%Y-%m-%d %H:%M:%S' )"
-  do-configure 2>&1
-  echo "CONFIGURE R STOP:  $( date '+%Y-%m-%d %H:%M:%S' )"
-} | tee $RECIPE_DIR/build-configure.log
+  date '+%Y-%m-%d %H:%M:%S'
+}
+
+do-command()
+{
+  local LABEL=$1
+  shift
+  local CMD=( ${*} )
+  {
+    echo DO: $(date-secs) $LABEL START:
+    echo LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}
+    if ! ${CMD[@]} 2>&1
+    then
+      echo DO: $(date-secs) $LABEL FAILED
+      exit 1
+    fi
+    echo DO: $(date-secs) $LABEL STOP.
+  } | tee $RECIPE_DIR/build-$LABEL.log
+}
+
+# Configure it!
+do-command configure do-configure
 
 # Make it!
-{
-  echo "MAKE R START: $( date '+%Y-%m-%d %H:%M:%S' )"
-  make -j 4 2>&1
-  echo "MAKE R STOP:  $( date '+%Y-%m-%d %H:%M:%S' )"
-} | tee $RECIPE_DIR/build-make.log
+echo   LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}
+export LD_LIBRARY_PATH=$CONDA_PREFIX/lib
+do-command make make
 
 # Install it!
-{
-  echo "INSTALL R START: $( date '+%Y-%m-%d %H:%M:%S' )"
-  make install 2>&1
-  echo "INSTALL R STOP:  $( date '+%Y-%m-%d %H:%M:%S' )"
-} | tee $RECIPE_DIR/build-install.log
+do-command install make install
 
 # Test it!
 {
@@ -131,4 +146,6 @@ do-configure()
   echo "TEST R STOP:  $( date '+%Y-%m-%d %H:%M:%S' )"
 } 2>&1 | tee $RECIPE_DIR/build-test.log
 
+echo
 echo "BUILD.SH STOP $( date '+%Y-%m-%d %H:%M:%S' )"
+echo
