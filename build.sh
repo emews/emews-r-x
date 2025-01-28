@@ -10,7 +10,11 @@ set -o pipefail
 # Environment notes:
 # Generally, environment variables are not inherited into here.
 
-# PREFIX is provided by Conda
+# CONDA_PREFIX, PREFIX, RECIPE_DIR are provided by Conda
+
+# You can run this interactively, in which case
+# CONDA_PREFIX should be set by your Anaconda installation,
+# and this script sets RECIPE_DIR.  PREFIX will be unset.
 
 TIMESTAMP=$( date '+%Y-%m-%d %H:%M:%S' )
 
@@ -21,11 +25,18 @@ echo
 show()
 # Report shell value, aligned
 {
+  local V
   for V in ${*}
   do
     printf "%-13s %s\n" ${V}: ${!V:-unset}
   done
 }
+
+if [[ ${RECIPE_DIR:-} == "" ]]
+then
+  RECIPE_DIR=$( cd $( dirname $0 ) ; /bin/pwd -P )
+  echo "Interactive mode: RECIPE_DIR=$RECIPE_DIR"
+fi
 
 {
   echo "python:" $( which python )
@@ -34,7 +45,7 @@ show()
   show RECIPE_DIR
   show SRC_DIR
   show PREFIX
-} > $RECIPE_DIR/build-metadata.log
+} | tee $RECIPE_DIR/build-metadata.log
 
 # Cf. helpers.zsh
 if [[ $PLATFORM =~ osx-* ]]
@@ -62,8 +73,9 @@ do-configure()
   # export CC=$(  which clang    )
   # export CXX=$( which clang++  )
   # export FC=$(  which gfortran )
-  export CC=$CONDA_PREFIX/bin/gcc
-  export CXX=$CONDA_PREFIX/bin/g++
+  # export CC=$CONDA_PREFIX/bin/gcc
+  # export CXX=$CONDA_PREFIX/bin/g++
+
   export FC=$CONDA_PREFIX/bin/gfortran
   export CPPFLAGS="-I$CONDA_PREFIX/include"
   # export CFLAGS="-Wno-nullability-completeness"
@@ -91,7 +103,7 @@ do-configure()
        --without-libtiff
        --without-ICU
        --with-included-gettext
-       --without-x
+       # --without-x
        --without-recommended-packages
        --without-aqua
     )
@@ -133,7 +145,8 @@ do-command configure do-configure
 # Make it!
 echo   LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}
 export LD_LIBRARY_PATH=$CONDA_PREFIX/lib
-do-command make make
+echo PWD=$PWD
+do-command make make -j 4
 
 # Install it!
 do-command install make install

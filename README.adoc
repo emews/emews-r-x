@@ -18,3 +18,12 @@ Remember to:
 
 . Use `ssh -X`
 . Set `ForwardX11Trusted yes`
+
+=== Interactive builds (for humans)
+
+. Install a fresh Anaconda
+. `$ ./human-setup.sh`
+. `$ ./human-build.sh R_SVN WORK` +
+where
+`R_SVN` is the R SVN checkout and
+`WORK` is a temporary build directory for R
