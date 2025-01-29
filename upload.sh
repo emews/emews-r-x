@@ -6,11 +6,16 @@ set -eu
 
 # Get this directory
 THIS=${0:A:h}
-source $THIS/../../turbine/code/scripts/helpers.zsh
 
 FORCE=""
 zparseopts -D -E f=F
 if (( ${#F} )) FORCE="--force"
+
+abort()
+{
+  print ${*}
+  exit 1
+}
 
 if (( ${#*} != 1 )) abort "upload.sh: Provide PKG!"
 PKG=$1
