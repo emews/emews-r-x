@@ -129,7 +129,8 @@ do-command()
   local CMD=( ${*} )
   {
     echo DO: $(date-secs) $LABEL START:
-    echo LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}
+    show PWD LD_LIBRARY_PATH
+
     if ! ${CMD[@]} 2>&1
     then
       echo DO: $(date-secs) $LABEL FAILED
