@@ -1,5 +1,5 @@
 
-{% set name = "emews-r-base" %}
+{% set name = "emews-r-x" %}
 {% set version = "85879" %}
 
 package:
@@ -15,7 +15,7 @@ build:
   # Environment variables for build.sh must be listed here,
   # normal environment inheritance does not happen!
   script_env:
-    - PLATFORM=linux-64
+    - PLATFORM={{ environ.get('PLATFORM', 'UNSET_PLATFORM') }}
 
 # Remember to sync any dependency changes here with conda-install.sh
 requirements:
@@ -25,6 +25,12 @@ requirements:
     - xz
     - gfortran
     - zlib
+    # For X11:
+    # xorg-x11-proto-devel-cos6-x86_64
+    - xorg-libx11 # xorg-x11-proto-devel
+    - xorg-xorgproto
+    - xorg-libxt  # For X11/Intrinsic.h
+    - libiconv  # For iconv.h
 
   run:
     - libcurl
@@ -32,6 +38,12 @@ requirements:
     - xz
     - gfortran
     - zlib
+    # For X11:
+    # xorg-x11-proto-devel-cos6-x86_64
+    - xorg-libx11 # xorg-x11-proto-devel
+    - xorg-xorgproto
+    - xorg-libxt  # For X11/Intrinsic.h
+    - libiconv  # For iconv.h
 
 test:
   commands:
