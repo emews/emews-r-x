@@ -73,6 +73,8 @@ do-configure()
   # export CC=$(  which clang    )
   # export CXX=$( which clang++  )
   # export FC=$(  which gfortran )
+
+  # Do not want GNU on Mac:
   # export CC=$CONDA_PREFIX/bin/gcc
   # export CXX=$CONDA_PREFIX/bin/g++
 
