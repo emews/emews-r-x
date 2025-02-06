@@ -7,6 +7,8 @@ Only necessary for platform `osx-arm64`, due to a memory error in the official A
 
 See the projects for `emews-r` and `emews-rinside`.
 
+Remember to use `capabilities()` to check features.
+
 == Versions for X and other features
 
 Our `emews-r` was built with:
@@ -38,6 +40,7 @@ Drops `--without-aqua`.       +
 Uploaded, untested.
 
 emews-r-x==3::
+Drops `--without-readline`.    +
 Drops `--without-cairo`.       +
 Cairo seems to be important for plotting file formats. +
 WIP
