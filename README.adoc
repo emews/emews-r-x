@@ -5,6 +5,49 @@ A simple Anaconda package with unmodified R from SVN for use with EMEWS.
 
 Only necessary for platform `osx-arm64`, due to a memory error in the official Anaconda release.  Still a problem as of 2024-12-12.
 
+See the projects for `emews-r` and `emews-rinside`.
+
+== Versions for X and other features
+
+Our `emews-r` was built with:
+----
+--enable-R-shlib
+--disable-java
+--without-readline
+--without-tcltk
+--without-cairo
+--without-jpeglib
+--without-libtiff
+--without-ICU
+--with-included-gettext
+--without-x
+--without-recommended-packages
+--without-aqua
+----
+
+This project tries to enable some of these features.
+
+In priority order from top priority (1) to lowest:
+
+emews-r-x==1::
+Drops `--without-x`.       +
+Works, tested by jozik .
+
+emews-r-x==2::
+Drops `--without-aqua`.       +
+Uploaded, untested.
+
+emews-r-x==3::
+Drops `--without-cairo`.       +
+Cairo seems to be important for plotting file formats. +
+WIP
+
+== Usage
+
+. Install a build Miniconda
+. Run `setup-conda.sh`
+. Run `conda-build.sh`
+
 == Notes
 
 Remember to:
