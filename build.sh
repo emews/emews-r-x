@@ -107,7 +107,7 @@ do-configure()
        --with-included-gettext
        # --without-x
        --without-recommended-packages
-       --without-aqua
+       # /--without-aqua
     )
   # Use fmt for single argument per line
   echo ${A[@]} | fmt -w 5
