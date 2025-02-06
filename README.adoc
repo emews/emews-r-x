@@ -41,6 +41,9 @@ Uploaded, untested.
 
 emews-r-x==3::
 Drops `--without-readline`.    +
+Uploaded, untested.
+
+emews-r-x==4::
 Drops `--without-cairo`.       +
 Cairo seems to be important for plotting file formats. +
 WIP
