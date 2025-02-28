@@ -45,6 +45,9 @@ Drops `--without-cairo`.       +
 Cairo seems to be important for plotting file formats. +
 WIP
 
+emews-r-x==5::
+Force installation of `clangxx` to address issue when building packages with C++
+
 == Usage
 
 . Install a build Miniconda
