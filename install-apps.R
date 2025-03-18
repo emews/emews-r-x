@@ -10,8 +10,6 @@ r["CRAN"] <- "http://cran.wustl.edu/"
 options(repos = r)
 NCPUS = 8
 
-# Do plotly early in the list: It requires OpenSSL and Curl headers
-# which may not be available.
 PKGS <- list(
     "farver",
     "ggplot2"

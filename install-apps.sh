@@ -61,4 +61,6 @@ then
 fi
 
 THIS=$( dirname $0 )
+
+# Do it!
 nice R -f $THIS/install-apps.R 2>&1 | tee install-apps.log
