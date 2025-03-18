@@ -37,7 +37,8 @@ done
 echo
 set -u
 
-# On Mac, these should be clang, clang++, gfortran:
+# On Mac, these should be clang, clang++, gfortran,
+#         from the Anaconda installation!
 : ${CC:=gcc} ${CPP:=g++} ${FC:=gfortran}
 
 echo "tools:"
