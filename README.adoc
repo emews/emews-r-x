@@ -9,6 +9,8 @@ See the projects for `emews-r` and `emews-rinside`.
 
 Remember to use `capabilities()` to check features.
 
+Using R from SVN r85879 .
+
 == Versions for X and other features
 
 Our `emews-r` was built with:
