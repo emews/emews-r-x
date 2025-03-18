@@ -70,9 +70,9 @@ do-configure()
 {
   # CONDA_PREFIX should be the installation-time Python location
 
-  # export CC=$(  which clang    )
-  # export CXX=$( which clang++  )
-  # export FC=$(  which gfortran )
+  export CC=$(  which clang    )
+  export CXX=$( which clang++  )
+  export FC=$(  which gfortran )
 
   # Do not want GNU on Mac:
   # export CC=$CONDA_PREFIX/bin/gcc
@@ -98,9 +98,9 @@ do-configure()
   A=(  --prefix=$CONDA_PREFIX
        --enable-R-shlib
        --disable-java
-       --without-readline
+       # --without-readline
        --without-tcltk
-       --without-cairo
+       # --without-cairo
        --without-jpeglib
        --without-libtiff
        --without-ICU
@@ -149,7 +149,7 @@ do-command configure do-configure
 echo   LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}
 export LD_LIBRARY_PATH=$CONDA_PREFIX/lib
 echo PWD=$PWD
-do-command make make -j 4
+do-command make make
 
 # Install it!
 do-command install make install

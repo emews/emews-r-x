@@ -3,7 +3,7 @@
 
 {% set name = "emews-r-x" %}
 # See README for version meanings:
-{% set version = "2" %}
+{% set version = "4" %}
 
 package:
   name:    {{ name }}
@@ -34,6 +34,7 @@ requirements:
     - xorg-xorgproto
     - xorg-libxt  # For X11/Intrinsic.h
     - libiconv  # For iconv.h
+    - cairo
 
   run:
     - libcurl
@@ -47,6 +48,7 @@ requirements:
     - xorg-xorgproto
     - xorg-libxt  # For X11/Intrinsic.h
     - libiconv  # For iconv.h
+    - cairo
 
 test:
   commands:

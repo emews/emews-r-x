@@ -8,7 +8,7 @@ set -eu
 THIS=${0:A:h}
 
 FORCE=""
-zparseopts -D -E f=F
+zparseopts -D -E -F f=F
 if (( ${#F} )) FORCE="--force"
 
 abort()

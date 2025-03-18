@@ -28,7 +28,14 @@ PKGS=(
   xorg-xorgproto
   xorg-libxt  # For X11/Intrinsic.h
   libiconv  # For iconv.h
+
+  # For Cairo
+  cairo
 )
 
-set -x
-conda install --yes -c conda-forge $SOLVER $PKGS
+(
+  set -x
+  conda install --yes -c conda-forge $SOLVER $PKGS
+)
+print
+print "REMEMBER to rehash!"
