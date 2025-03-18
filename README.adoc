@@ -48,6 +48,8 @@ Uploaded, untested.
 emews-r-x==4::
 Drops `--without-cairo`.       +
 Cairo seems to be important for plotting file formats. +
+
+emews-r-x==5::
 WIP
 
 == Usage
