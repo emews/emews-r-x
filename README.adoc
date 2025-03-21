@@ -11,6 +11,22 @@ Remember to use `capabilities()` to check features.
 
 Using R from SVN r85879 .
 
+== User installation
+
+The end user should be able to simply:
+
+----
+$ conda install -c swift-t emews-r-x
+----
+
+The user can then run:
+
+----
+$ ./install-apps.sh
+----
+
+to install the "application" libraries `farver` and `ggplot2`.
+
 == Versions for X and other features
 
 Our `emews-r` was built with:
