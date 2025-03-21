@@ -31,6 +31,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          # auto-update-conda: true
+          python-version: 3.11
+
+      - name: Check environment
+        run: |
+          ./gh-environment
+
       - name: Setup dependencies
         run: |
           ./gh-check true
