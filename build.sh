@@ -149,7 +149,7 @@ do-command configure do-configure
 echo   LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}
 export LD_LIBRARY_PATH=$CONDA_PREFIX/lib
 echo PWD=$PWD
-do-command make make
+do-command make make -j 4
 
 # Install it!
 do-command install make install
