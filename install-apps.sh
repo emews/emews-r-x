@@ -30,7 +30,7 @@ fi
 
 echo "variables:"
 set +u  # These variables may be unset
-for var in CC CXX FC
+for var in CC CPP CXX FC
 do
   printf "using %-8s = %s\n" $var ${!var}
 done
@@ -39,10 +39,10 @@ set -u
 
 # On Mac, these should be clang, clang++, gfortran,
 #         from the Anaconda installation!
-: ${CC:=gcc} ${CPP:=g++} ${FC:=gfortran}
+: ${CC:=gcc} ${CPP:=g++} ${CXX:=g++} ${FC:=gfortran}
 
 echo "tools:"
-for tool in R $CC $CPP $FC
+for tool in R $CC $CPP $CXX $FC
 do
   if which $tool 2>&1 > /dev/null
   then
