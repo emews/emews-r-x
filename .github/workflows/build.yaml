@@ -1,0 +1,36 @@
+name: Conda Build 🐍
+
+# Build the EMEWS-R-X Anaconda package
+
+env:
+  # For Chicago time on log messages:
+  TZ: America/Chicago
+
+on:
+  # Schedule and workflow_dispatch (manual) only work on default branch
+  schedule:
+    - cron: "0 5 * * *"   # Fire at 5:00 AM every day
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - master
+  release:
+    types:
+      - published
+
+permissions:
+  contents: read    # To read the project source code (git)
+
+jobs:
+  build_conda_pkg:
+    name: Conda Build
+    runs-on: macos-14-arm64
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup dependencies
+        run: |
+          ./gh-check true

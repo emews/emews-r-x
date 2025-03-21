@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# GH CHECK
+# Run command, always return success for GitHub action
+# Allows us to capture artifacts and test for success later
+
+echo "CHECK: ${*}"
+
+# Run the arguments here!
+if ${*}
+then
+  echo "CHECK OK."
+else
+  echo "CHECK FAILED: ${*}"
+fi
