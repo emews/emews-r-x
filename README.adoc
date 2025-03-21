@@ -19,6 +19,10 @@ The end user should be able to simply:
 $ conda install -c swift-t emews-r-x
 ----
 
+This will install R in the given Anaconda.
+
+This should default to the latest version (see below).
+
 The user can then run:
 
 ----
@@ -29,7 +33,7 @@ to install the "application" libraries `farver` and `ggplot2`.
 
 == Versions for X and other features
 
-Our `emews-r` was built with:
+Our original `emews-r` was built with:
 ----
 --enable-R-shlib
 --disable-java
@@ -45,7 +49,7 @@ Our `emews-r` was built with:
 --without-aqua
 ----
 
-This project tries to enable some of these features.
+This project tries to re-enable these features as needed for `ggplot2` and other graphical applications.
 
 In priority order from top priority (1) to lowest:
 
