@@ -35,6 +35,7 @@ requirements:
     - xorg-libxt  # For X11/Intrinsic.h
     - libiconv  # For iconv.h
     - cairo
+    - clangxx
 
   run:
     - libcurl
