@@ -6,6 +6,16 @@
 
 echo "CHECK: ${*}"
 
+# Adds gh/ to PATH to shorten commands
+
+if [ ! -d gh ]
+then
+  echo "CHECK: MISCONFIGURATION!"
+  exit 1
+fi
+
+PATH=$PWD/gh:$PATH
+
 # Run the arguments here!
 if ${*}
 then

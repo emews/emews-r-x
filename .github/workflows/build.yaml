@@ -38,8 +38,12 @@ jobs:
 
       - name: Check environment
         run: |
-          ./gh-environment
+          gh/environment
 
-      - name: Setup dependencies
+      - name: Build Conda package
         run: |
-          ./gh-check true
+          gh/check build
+
+      - name: Test Conda package
+        run: |
+          gh/check test
