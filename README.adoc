@@ -72,6 +72,10 @@ Cairo seems to be important for plotting file formats. +
 emews-r-x==5::
 Force installation of `clangxx` to address issue when building packages with C++
 
+emews-r-x==6::
+Add `activate.sh` to address `.libPaths()` issue +
+WIP
+
 == Usage
 
 . Install a build Miniconda
