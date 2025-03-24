@@ -10,7 +10,7 @@ package:
   version: {{ version }}
 
 source:
-  # User needs to manually update this:
+  # R_SVN is exported by conda-build.sh
   path: {{ environ.get('R_SVN', 'UNSET_R_SVN') }}
 
 build:
