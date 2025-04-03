@@ -74,7 +74,7 @@ Force installation of `clangxx` to address issue when building packages with C++
 
 emews-r-x==6::
 Add `activate.sh` to address `.libPaths()` issue +
-WIP
+Ready for testing
 
 == Usage
 
