@@ -119,6 +119,18 @@ do-configure()
   )
 }
 
+do-activate-sh()
+{
+  # Copy the [de]activate scripts to $PREFIX/etc/conda/[de]activate.d.
+  # This will allow them to be run on environment activation.
+  for CHANGE in "activate" "deactivate"
+  do
+    local D=$PREFIX/etc/conda/${CHANGE}.d
+    mkdir -pv "$D"
+    cp -v "$RECIPE_DIR/${CHANGE}.sh" "$D/${PKG_NAME}_${CHANGE}.sh"
+  done
+}
+
 date-secs()
 {
   date '+%Y-%m-%d %H:%M:%S'
@@ -141,6 +153,9 @@ do-command()
     echo DO: $(date-secs) $LABEL STOP.
   } | tee $RECIPE_DIR/build-$LABEL.log
 }
+
+# Post-build stuff!
+do-command activate-sh do-activate-sh
 
 # Configure it!
 do-command configure do-configure
