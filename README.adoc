@@ -73,6 +73,7 @@ emews-r-x==5::
 Force installation of `clangxx` to address issue when building packages with C++
 
 emews-r-x==6::
+Move to R release tag 4.4.3 . +
 Add `activate.sh` to address `.libPaths()` issue +
 Ready for testing
 
@@ -104,3 +105,9 @@ Remember to:
 where
 `R_SVN` is the R SVN checkout and
 `WORK` is a temporary build directory for R
+
+== Troubleshooting
+
+=== libxml errors
+
+Reinstall conda- this is probably a Mac /tmp auto-delete issue
