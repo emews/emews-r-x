@@ -6,6 +6,12 @@ set -eu
 # Does not build an Anaconda package
 # Just tries to build R in the current Anaconda environment
 
+# Hard-coded for now- on other systems, we use community R packages
+# Also set in meta.yaml
+export PLATFORM=${PLATFORM:-osx-arm64}
+export PREFIX=$CONDA_PREFIX
+export PKG_NAME="emews-r-x"
+
 zparseopts -D -E c=CLEAN
 if (( ${#*} != 2 )) {
   print -- "Provide [-c] R_SVN WORK: got: ${*}"
