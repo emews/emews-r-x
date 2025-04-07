@@ -5,12 +5,13 @@
 # Installation settings:
 r <- getOption("repos")
 # Change this mirror as needed:
-# r["CRAN"] <- "http://cran.cnr.berkeley.edu/"
-r["CRAN"] <- "http://cran.wustl.edu/"
+r["CRAN"] <- "http://cran.cnr.berkeley.edu/"
+# r["CRAN"] <- "http://cran.wustl.edu/"
 options(repos = r)
 NCPUS = 8
 
 PKGS <- list(
+    "mgcv",
     "farver",
     "ggplot2"
 )
