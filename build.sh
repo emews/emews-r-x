@@ -47,7 +47,6 @@ fi
   show PREFIX
 } | tee $RECIPE_DIR/build-metadata.log
 
-# Cf. helpers.zsh
 if [[ $PLATFORM =~ osx-* ]]
 then
   NULL=""
