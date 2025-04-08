@@ -8,4 +8,8 @@ echo CHECKOUT R
 set -x
 pwd
 
-time svn co https://svn.r-project.org/R/tags/R-4-4-3
+# time svn co https://svn.r-project.org/R/tags/R-4-4-3
+
+URL='http://web.cels.anl.gov/~woz/R-4-4-3.tgz'
+
+wget -O - $URL | /bin/time --format="TIME: %E" tar xz
