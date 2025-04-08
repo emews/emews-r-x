@@ -12,5 +12,6 @@ echo "pwd:     " $(pwd -P)
 echo "python:  " $(which python)
 
 echo
+echo -n "git:     "
 git log -n 1 --date="format:%Y-%m-%d %H:%m" --format=tformat:"%h %cd %an : %s"
 echo
