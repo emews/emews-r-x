@@ -8,7 +8,16 @@ echo "hostname:" $(hostname)
 echo "whoami:  " $(whoami)
 echo "date:    " $(date "+%Y-%m-%d %H:%M")
 echo "pwd:     " $(pwd -P)
-# Conda has not been activated- this will change in install_emews.sh
+
+if (( ${#GITHUB_ACTIONS} > 0 ))
+then
+  C=/Users/runner/miniconda3/etc/profile.d/conda.sh
+  echo "sourcing GitHub Actions Miniconda conda.sh:"
+  ls -l $C
+  source $C
+  echo CONDA_PREFIX $CONDA_PREFIX
+fi
+
 echo "python:  " $(which python)
 
 echo
