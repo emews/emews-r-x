@@ -116,6 +116,6 @@ Reinstall conda- this is probably a Mac /tmp auto-delete issue
 
 == GitHub Actions
 
-`conda-incubator/setup-miniconda`
+`conda-incubator/setup-miniconda` installs Python at `/Users/runner/miniconda3` .
 
-We want to run in this Python.  It seems to install the build tools automatically in the environment called `test`.
+We want to run in this Python.
