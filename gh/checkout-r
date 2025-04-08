@@ -1,0 +1,11 @@
+#!/bin/bash
+set -eu
+
+# GH CHECKOUT-R
+
+echo CHECKOUT R
+
+set -x
+pwd
+
+time svn co https://svn.r-project.org/R/tags/R-4-4-3
