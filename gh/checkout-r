@@ -13,4 +13,4 @@ pwd
 URL='http://web.cels.anl.gov/~woz/R-4-4-3.tgz'
 
 # Note this is the macOS time program:
-wget -O - $URL | /usr/bin/time -h tar xz
+wget -q -O - $URL | /usr/bin/time -h tar xz
