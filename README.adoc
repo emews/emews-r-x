@@ -113,3 +113,9 @@ where
 === libxml errors
 
 Reinstall conda- this is probably a Mac /tmp auto-delete issue
+
+== GitHub Actions
+
+`conda-incubator/setup-miniconda`
+
+We want to run in this Python.
