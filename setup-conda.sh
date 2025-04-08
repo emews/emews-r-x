@@ -4,6 +4,11 @@ set -eu
 # SETUP CONDA
 # Install Anaconda build tools
 
+if (( ${#GITHUB_ACTIONS} > 0 ))
+then
+  source ./enable-python.sh
+fi
+
 echo "setting up Anaconda build tools in:"
 which conda
 echo
