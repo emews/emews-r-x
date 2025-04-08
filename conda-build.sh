@@ -76,6 +76,8 @@ PYTHON_EXE=( =python )
 # Get its directory:
 PYTHON_BIN=${PYTHON_EXE:h}
 
+print LISTING
+print PYTHON_EXE $PYTHON_EXE $PYTHON_BIN
 ls $PYTHON_BIN
 conda list
 
