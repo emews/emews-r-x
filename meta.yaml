@@ -36,6 +36,7 @@ requirements:
     - libiconv  # For iconv.h
     - cairo
     - clangxx
+    # Try ncurses
 
   run:
     - libcurl
