@@ -51,6 +51,8 @@ requirements:
     - xorg-libxt  # For X11/Intrinsic.h
     - libiconv  # For iconv.h
     - cairo
+    # New 2025-04-07
+    - clangxx
 
 test:
   commands:
