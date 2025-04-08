@@ -54,4 +54,4 @@ jobs:
 
       - name: Test Conda package
         run: |
-          test-build
+          gh/test-build
