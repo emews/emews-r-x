@@ -5,17 +5,19 @@
 # Installation settings:
 r <- getOption("repos")
 # Change this mirror as needed:
-r["CRAN"] <- "http://cran.cnr.berkeley.edu/"
-# r["CRAN"] <- "http://cran.wustl.edu/"
+# r["CRAN"] <- "http://cran.cnr.berkeley.edu/"
+r["CRAN"] <- "http://cran.wustl.edu/"
 options(repos = r)
 NCPUS = 8
 
+# The main list of application packages to install
 PKGS <- list(
     "mgcv",
     "farver",
     "ggplot2"
 )
 
+# Install and test each package
 for (pkg in PKGS) {
   print("")
   cat("INSTALL: ", pkg, "\n")
