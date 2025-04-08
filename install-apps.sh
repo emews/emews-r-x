@@ -42,7 +42,7 @@ set -u
 : ${CC:=gcc} ${CPP:=g++} ${CXX:=g++} ${FC:=gfortran}
 
 echo "tools:"
-for tool in R $CC $CPP $CXX $FC
+for tool in $CC $CPP $CXX $FC R
 do
   if which $tool 2>&1 > /dev/null
   then
@@ -51,6 +51,7 @@ do
     echo "not found: $tool"
   fi
 done
+R --version | head -1
 echo
 
 if (( ${CONFIRM:-0} == 1 ))
@@ -63,4 +64,4 @@ fi
 THIS=$( dirname $0 )
 
 # Do it!
-nice R -f $THIS/install-apps.R 2>&1 | tee install-apps.log
+nice R -q -f $THIS/install-apps.R 2>&1 | tee install-apps.log
