@@ -1,3 +1,22 @@
 #!/bin/bash
+set -eu
 
-echo RUN TEST
+# TEST BUILD
+# Check logs from build step
+
+echo "TEST-BUILD"
+
+if ! [[ -f conda-build.log ]]
+then
+  echo "not found: conda-build.log!"
+  exit 1
+fi
+
+MSG="CONDA-BUILD: SUCCESS"
+if ! grep -q "${MSG}" conda-build.log
+then
+  echo "not found in conda-build.log: '$MSG'"
+  exit 1
+fi
+
+echo "TEST-BUILD: OK"

@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# ENVIRONMENT
+# Just logging environment and tools for debugging/provenance
+
 echo "hostname:" $(hostname)
 echo "whoami:  " $(whoami)
 echo "date:    " $(date "+%Y-%m-%d %H:%M")

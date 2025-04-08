@@ -182,3 +182,6 @@ checksum()
   log $T
   log "HASH:" $( checksum $PKG )
 ) | tee -a $LOG
+
+# This is mostly for GitHub Action step checking
+echo "CONDA-BUILD: SUCCESS" > $LOG
