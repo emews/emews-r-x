@@ -12,4 +12,4 @@ pwd
 
 URL='http://web.cels.anl.gov/~woz/R-4-4-3.tgz'
 
-wget -O - $URL | /bin/time --format="TIME: %E" tar xz
+wget -O - $URL | /usr/bin/time --format="TIME: %E" tar xz
