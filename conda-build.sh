@@ -105,17 +105,17 @@ if [[ ${TOOLDIR} != ${PYTHON_BIN} ]] {
   return 1
 }
 
-if (( ${#C} )) {
-  log "configure-only: exit."
-  exit
-}
-
 # Backup the old log
 LOG=conda-build.log
 log "LOG: $LOG"
 if [[ -f $LOG ]] {
   mv -v $LOG $LOG.bak
   print
+}
+
+if (( ${#C} )) {
+  log "configure-only: exit." | tee $LOG
+  exit
 }
 
 {
