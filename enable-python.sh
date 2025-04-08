@@ -7,3 +7,4 @@ echo "sourcing GitHub Actions Miniconda conda.sh:"
 ls $C
 source $C
 echo CONDA_PREFIX=$CONDA_PREFIX
+echo

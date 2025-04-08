@@ -4,6 +4,7 @@
 # Run command, always return success for GitHub action!
 # Allows us to capture artifacts and test for success later
 
+echo
 echo "CHECK: ${*}"
 
 # Adds gh/ to PATH to shorten commands
@@ -23,3 +24,4 @@ then
 else
   echo "CHECK FAILED: ${*}"
 fi
+echo
