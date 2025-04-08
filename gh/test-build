@@ -16,6 +16,11 @@ MSG="CONDA-BUILD: SUCCESS"
 if ! grep -q "${MSG}" conda-build.log
 then
   echo "not found in conda-build.log: '$MSG'"
+  echo
+  echo "conda-build.log: START"
+  cat   conda-build.log
+  echo "conda-build.log: END"
+  echo
   exit 1
 fi
 
