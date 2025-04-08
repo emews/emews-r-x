@@ -1,3 +1,13 @@
 #!/bin/bash
+set -eu
+
+# GH BUILD
 
 echo RUN BUILD
+
+set -x
+pwd
+
+./setup-conda.sh
+
+./conda-build.sh
