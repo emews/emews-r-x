@@ -71,6 +71,14 @@ log()
   print ${(%)DATE_FMT_S} ${LOG_LABEL:-} ${*}
 }
 
+# Look up executable:
+PYTHON_EXE=( =python )
+# Get its directory:
+PYTHON_BIN=${PYTHON_EXE:h}
+
+ls $PYTHON_BIN
+conda list
+
 # Check that the conda-build tool in use is in the
 #       selected Python installation
 if ! which conda-build >& /dev/null
@@ -83,10 +91,6 @@ fi
 CONDA_BUILD_TOOL=( =conda-build )
 # Get its directory:
 TOOLDIR=${CONDA_BUILD_TOOL:h}
-# Look up executable:
-PYTHON_EXE=( =python )
-# Get its directory:
-PYTHON_BIN=${PYTHON_EXE:h}
 if [[ ${TOOLDIR} != ${PYTHON_BIN} ]] {
   log "conda-build is not in your python directory!"
   log "            this is probably wrong!"
