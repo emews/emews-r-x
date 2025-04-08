@@ -44,9 +44,9 @@ jobs:
       #   run: |
       #     gh/setup
 
-      # - name: Checkout R
-      #   run: |
-      #     gh/checkout-r
+      - name: Checkout R
+        run: |
+          gh/checkout-r
 
       - name: Build Conda package
         run: |
