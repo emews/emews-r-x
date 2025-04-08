@@ -118,4 +118,4 @@ Reinstall conda- this is probably a Mac /tmp auto-delete issue
 
 `conda-incubator/setup-miniconda`
 
-We want to run in this Python.
+We want to run in this Python.  It seems to install the build tools automatically in the environment called `test`.
