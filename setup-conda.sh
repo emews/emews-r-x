@@ -25,7 +25,6 @@ PKGS=(
   # svn
 )
 
-set -x
 conda install --yes ${PKGS[@]}
 
 # Suppress this behavior from Conda on "conda build" errors:
