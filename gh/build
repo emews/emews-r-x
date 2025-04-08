@@ -8,6 +8,4 @@ echo RUN BUILD
 set -x
 pwd
 
-./setup-conda.sh
-
 ./conda-build.sh ./R-4-4-3

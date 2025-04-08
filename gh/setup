@@ -1,0 +1,11 @@
+#!/bin/bash
+set -eu
+
+# GH SETUP
+
+echo SETUP
+
+set -x
+pwd
+
+./setup-conda.sh

@@ -40,6 +40,10 @@ jobs:
         run: |
           gh/environment
 
+      - name: Install build tools
+        run: |
+          gh/setup
+
       - name: Checkout R
         run: |
           gh/checkout-r
