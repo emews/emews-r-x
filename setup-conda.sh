@@ -19,8 +19,8 @@ PKGS=(
   # Basic tools:
   conda-build
   anaconda-client
-  # Needed for R:
-  svn
+  # # Needed for R:
+  # svn
 )
 
 set -x
