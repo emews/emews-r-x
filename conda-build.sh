@@ -20,18 +20,20 @@ help()
   cat <<END
 
 Options:
-   -C configure-only
-
+   -S Settings:  Just reports startup settings and exits
+   -C Configure: Just runs configure, not make
 END
 }
 
-C=""
-zparseopts -D -E -F h=HELP C=C
+C="" S=""
+zparseopts -D -E -F h=HELP C=C S=S
 
 if (( ${#HELP} )) {
   help
   exit
 }
+
+if (( ${#C} )) export CONFIG_ONLY=1
 
 # Get this directory
 THIS=${0:A:h}
@@ -113,9 +115,9 @@ if [[ -f $LOG ]] {
   print
 }
 
-if (( ${#C} )) {
-  log "configure-only: exit." | tee $LOG
-  exit
+if (( ${#S} )) {
+  log "settings-only: exit." | tee $LOG
+  return
 }
 
 {
