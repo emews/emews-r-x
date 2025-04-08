@@ -13,7 +13,7 @@ set -eu
 
 # Hard-coded for now- on other systems, we use community R packages
 # Also set in meta.yaml
-PLATFORM=${PLATFORM:-osx-arm64}
+export PLATFORM=${PLATFORM:-osx-arm64}
 
 help()
 {
