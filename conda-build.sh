@@ -71,6 +71,11 @@ log()
   print ${(%)DATE_FMT_S} ${LOG_LABEL:-} ${*}
 }
 
+if (( ${#GITHUB_ACTIONS} > 0 ))
+then
+  source ./enable-python.sh
+fi
+
 # Look up executable:
 PYTHON_EXE=( =python )
 # Get its directory:
