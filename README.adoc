@@ -73,10 +73,11 @@ emews-r-x==5::
 Force installation of `clangxx` to address issue when building packages with C++
 
 emews-r-x==6::
-Move to R release tag 4.4.3 . +
-Add `activate.sh` to address `.libPaths()` issue +
-Added package clangxx at runtime +
-Ready for testing
++
+. Move to R release tag 4.4.3 .
+. Add `activate.sh` to address `.libPaths()` issue
+. Added package `clangxx` at runtime
+. Ready for testing
 
 == Usage
 
