@@ -108,6 +108,13 @@ where
 `R_SVN` is the R SVN checkout and
 `WORK` is a temporary build directory for R
 
+=== R configuration
+
+To run `autoconf`, you must:
+
+. configure R with `--enable-maintainer-mode`
+. `make configure`
+
 == Troubleshooting
 
 === libxml errors
