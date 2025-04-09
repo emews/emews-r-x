@@ -114,6 +114,7 @@ date-secs()
 }
 
 do-command()
+# Redirects all output to build-LABEL.log
 {
   local LABEL=$1
   shift
@@ -137,6 +138,13 @@ do-command activate-sh do-activate-sh
 
 # Configure it!
 do-command configure do-configure
+
+if (( ${CONFIG_ONLY:-0} ))
+then
+  echo "configure-only: not running make."
+  echo "BUILD.SH STOP $( date '+%Y-%m-%d %H:%M:%S' )"
+  exit
+fi
 
 # Make it!
 echo   LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}

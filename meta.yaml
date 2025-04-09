@@ -19,6 +19,7 @@ build:
   # normal environment inheritance does not happen!
   script_env:
     - PLATFORM={{ environ.get('PLATFORM', 'UNSET_PLATFORM') }}
+    - CONFIG_ONLY={{ environ.get('CONFIG_ONLY', '0') }}
 
 # Remember to sync any dependency changes here with conda-install.sh
 requirements:
@@ -55,11 +56,11 @@ requirements:
     - clangxx
 
 test:
+  files:
+    - ./build-test.sh
   commands:
-    - echo
-    - echo "meta.yaml test commands:"
-    - which R Rscript
-    - R -e 'cat("R-SUCCESS:", 42, "\n")'
+    - pwd
+    - ./build-test.sh
 
 about:
   home: https://github.com/emews/emews-r-base

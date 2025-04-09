@@ -68,12 +68,11 @@ if [[ $PLATFORM =~ osx-* ]] {
 DATE_FMT_S="%D{%Y-%m-%d} %D{%H:%M:%S}"
 log()
 # General-purpose log line
-# You may set global LOG_LABEL to get a message prefix
 {
-  print ${(%)DATE_FMT_S} ${LOG_LABEL:-} ${*}
+  print ${(%)DATE_FMT_S} "conda-build.sh:" ${*}
 }
 
-if (( ${#GITHUB_ACTIONS} > 0 ))
+if (( ${GITHUB_ACTIONS:-0} ))
 then
   source ./enable-python.sh
 fi
@@ -83,10 +82,10 @@ PYTHON_EXE=( =python )
 # Get its directory:
 PYTHON_BIN=${PYTHON_EXE:h}
 
-print LISTING
-print PYTHON_EXE $PYTHON_EXE $PYTHON_BIN
-ls $PYTHON_BIN
-conda list
+# print LISTING
+# print PYTHON_EXE $PYTHON_EXE $PYTHON_BIN
+# ls $PYTHON_BIN
+# conda list
 
 # Check that the conda-build tool in use is in the
 #       selected Python installation
@@ -150,8 +149,13 @@ if (( ${#S} )) {
   log "CONDA BUILD: STOP: ${(%)DATE_FMT_S}"
 } |& tee $LOG
 print
-log "conda build succeeded."
+log "SUCCESS."
 print
+
+if (( ${CONFIG_ONLY:-0} )) {
+  log "configure-only: done."
+  return
+}
 
 # Look for success from meta.yaml:test:commands:
 # Output
