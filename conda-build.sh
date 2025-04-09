@@ -130,6 +130,10 @@ if (( ${#S} )) {
     conda env list
     print
 
+    # This purge-all is extremely important:
+    log "purge-all ..."
+    conda build purge-all
+
     BUILD_ARGS=(
       -c conda-forge
       --dirty
@@ -139,11 +143,8 @@ if (( ${#S} )) {
       .
     )
 
-    set -x
-    # This purge-all is extremely important:
-    conda build purge-all
-
     # Build the package!
+    log "main build args: $BUILD_ARGS"
     conda build $BUILD_ARGS
   )
   log "CONDA BUILD: STOP: ${(%)DATE_FMT_S}"
