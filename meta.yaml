@@ -57,10 +57,10 @@ requirements:
 
 test:
   files:
-    - ./build-test.sh
+    - ./meta-test.sh
   commands:
     - pwd
-    - ./build-test.sh
+    - ./meta-test.sh
 
 about:
   home: https://github.com/emews/emews-r-base

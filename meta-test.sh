@@ -1,13 +1,13 @@
 #!/bin/bash
 set -eu
 
-# BUILD TEST SH
-# Quick tests to run after build.sh
+# META TEST SH
+# Quick tests to run after build phase
 # Issued by meta.yaml
 
 log()
 {
-  echo "build-test.sh:" ${*}
+  echo "meta-test.sh:" ${*}
 }
 
 if (( ${CONFIG_ONLY:-0} ))
