@@ -20,6 +20,7 @@ build:
   script_env:
     - PLATFORM={{ environ.get('PLATFORM', 'UNSET_PLATFORM') }}
     - CONFIG_ONLY={{ environ.get('CONFIG_ONLY', '0') }}
+    - GITHUB_ACTIONS
 
 # Remember to sync any dependency changes here with conda-install.sh
 requirements:
