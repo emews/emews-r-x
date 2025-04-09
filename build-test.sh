@@ -5,18 +5,18 @@ set -eu
 # Quick tests to run after build.sh
 # Issued by meta.yaml
 
-say()
+log()
 {
   echo "build-test.sh:" ${*}
 }
 
 if (( ${CONFIG_ONLY:-0} ))
 then
-  echo "build-test.sh: configure-only: not running tests."
+  log "configure-only: not running tests."
   exit
 fi
 
-say "test commands:"
+log "test commands:"
 
 set -x
 which R Rscript
