@@ -110,6 +110,18 @@ where
 
 === R configuration
 
+We had to hack R 4.4.3 to get it to build on GitHub Actions due to a false installation of `cairo-xlib`.  Apply this patch to `m4/cairo.m4:139`:
+
+----
+-      if "${PKG_CONFIG}" --exists cairo-xlib; then
++      # EMEWS-R-X: Force no cairo-xlib on GitHub Actions
++      # if "${PKG_CONFIG}" --exists cairo-xlib; then
++      echo GITHUB_ACTIONS $GITHUB_ACTIONS
++      if test -z "$GITHUB_ACTIONS" && "${PKG_CONFIG}" --exists cairo-xlib; then
+----
+
+This forces `cairo-xlib` off under `GITHUB_ACTIONS==true` .  This is needed because `pkg-config` is installed under Homebrew and finds something, but it does not work.
+
 To run `autoconf`, you must:
 
 . configure R with `--enable-maintainer-mode`
