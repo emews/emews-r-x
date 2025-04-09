@@ -4,7 +4,7 @@ set -eu
 # SETUP CONDA
 # Install Anaconda build tools
 
-if (( ${GITHUB_ACTIONS:-0} ))
+if [[ ${GITHUB_ACTIONS:-0} == true ]]
 then
   source ./enable-python.sh
 fi

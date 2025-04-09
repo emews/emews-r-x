@@ -72,7 +72,7 @@ log()
   print ${(%)DATE_FMT_S} "conda-build.sh:" ${*}
 }
 
-if (( ${GITHUB_ACTIONS:-0} ))
+if [[ ${GITHUB_ACTIONS:-0} == true ]]
 then
   source ./enable-python.sh
 fi
