@@ -1,6 +1,8 @@
 
 = emews-r-x
 
+OBSOLETE: This has been merged back to emews-r-base !
+
 A simple Anaconda package with unmodified R from SVN for use with EMEWS.
 
 Only necessary for platform `osx-arm64`, due to a memory error in the official Anaconda release.  Still a problem as of 2024-12-12.
