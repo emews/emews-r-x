@@ -1,6 +1,8 @@
 
 = emews-r-x
 
+OBSOLETE: This has been merged back to emews-r-base !
+
 A simple Anaconda package with unmodified R from SVN for use with EMEWS.
 
 Only necessary for platform `osx-arm64`, due to a memory error in the official Anaconda release.  Still a problem as of 2024-12-12.
@@ -9,9 +11,31 @@ See the projects for `emews-r` and `emews-rinside`.
 
 Remember to use `capabilities()` to check features.
 
+Using R from SVN r85879 .
+
+== User installation
+
+The end user should be able to simply:
+
+----
+$ conda install -c swift-t emews-r-x
+----
+
+This will install R in the given Anaconda.
+
+This should default to the latest version (see below).
+
+The user can then run:
+
+----
+$ ./install-apps.sh
+----
+
+to install the "application" libraries `farver` and `ggplot2`.
+
 == Versions for X and other features
 
-Our `emews-r` was built with:
+Our original `emews-r` was built with:
 ----
 --enable-R-shlib
 --disable-java
@@ -27,7 +51,7 @@ Our `emews-r` was built with:
 --without-aqua
 ----
 
-This project tries to enable some of these features.
+This project tries to re-enable these features as needed for `ggplot2` and other graphical applications.
 
 In priority order from top priority (1) to lowest:
 
@@ -41,12 +65,21 @@ Uploaded, untested.
 
 emews-r-x==3::
 Drops `--without-readline`.    +
+Uploaded, untested.
+
+emews-r-x==4::
 Drops `--without-cairo`.       +
 Cairo seems to be important for plotting file formats. +
-WIP
 
 emews-r-x==5::
 Force installation of `clangxx` to address issue when building packages with C++
+
+emews-r-x==6::
++
+. Move to R release tag 4.4.3 .
+. Add `activate.sh` to address `.libPaths()` issue
+. Added package `clangxx` at runtime
+. Ready for testing
 
 == Usage
 
@@ -76,3 +109,34 @@ Remember to:
 where
 `R_SVN` is the R SVN checkout and
 `WORK` is a temporary build directory for R
+
+=== R configuration
+
+We had to hack R 4.4.3 to get it to build on GitHub Actions due to a false installation of `cairo-xlib`.  Apply this patch to `m4/cairo.m4:139`:
+
+----
+-      if "${PKG_CONFIG}" --exists cairo-xlib; then
++      # EMEWS-R-X: Force no cairo-xlib on GitHub Actions
++      # if "${PKG_CONFIG}" --exists cairo-xlib; then
++      echo GITHUB_ACTIONS $GITHUB_ACTIONS
++      if test -z "$GITHUB_ACTIONS" && "${PKG_CONFIG}" --exists cairo-xlib; then
+----
+
+This forces `cairo-xlib` off under `GITHUB_ACTIONS==true` .  This is needed because `pkg-config` is installed under Homebrew and finds something, but it does not work.
+
+To run `autoconf`, you must:
+
+. configure R with `--enable-maintainer-mode`
+. `make configure`
+
+== Troubleshooting
+
+=== libxml errors
+
+Reinstall conda- this is probably a Mac /tmp auto-delete issue
+
+== GitHub Actions
+
+`conda-incubator/setup-miniconda` installs Python at `/Users/runner/miniconda3` .
+
+We want to run in this Python.

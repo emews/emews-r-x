@@ -47,7 +47,6 @@ fi
   show PREFIX
 } | tee $RECIPE_DIR/build-metadata.log
 
-# Cf. helpers.zsh
 if [[ $PLATFORM =~ osx-* ]]
 then
   NULL=""
@@ -70,37 +69,15 @@ do-configure()
 {
   # CONDA_PREFIX should be the installation-time Python location
 
-  # export CC=$(  which clang    )
-  # export CXX=$( which clang++  )
-  # export FC=$(  which gfortran )
-
-  # Do not want GNU on Mac:
-  # export CC=$CONDA_PREFIX/bin/gcc
-  # export CXX=$CONDA_PREFIX/bin/g++
-
-  export FC=$CONDA_PREFIX/bin/gfortran
-  export CPPFLAGS="-I$CONDA_PREFIX/include"
-  # export CFLAGS="-Wno-nullability-completeness"
-  export LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath -Wl,$CONDA_PREFIX/lib"
-
-  # Possible fix for linking issue:  Need RPATH in libR.so !
-  export SHLIB_LDFLAGS="-L$CONDA_PREFIX/lib -Wl,-rpath -Wl,$CONDA_PREFIX/lib"
-
-  echo
-  echo "COMPILERS:"
-  show CC CXX FC
-  echo
-  echo "COMPILER SETTINGS:"
-  show CPPFLAGS CFLAGS LDFLAGS SHLIB_LDFLAGS
-  echo
+  source $RECIPE_DIR/setup-compilers.sh
 
   echo "CONFIGURE ARGUMENTS:"
   A=(  --prefix=$CONDA_PREFIX
        --enable-R-shlib
        --disable-java
-       --without-readline
+       # --without-readline
        --without-tcltk
-       --without-cairo
+       # --without-cairo
        --without-jpeglib
        --without-libtiff
        --without-ICU
@@ -119,17 +96,31 @@ do-configure()
   )
 }
 
+do-activate-sh()
+{
+  # Copy the [de]activate scripts to $PREFIX/etc/conda/[de]activate.d.
+  # This will allow them to be run on environment activation.
+  for CHANGE in "activate" "deactivate"
+  do
+    local D=$PREFIX/etc/conda/${CHANGE}.d
+    mkdir -pv "$D"
+    cp -v "$RECIPE_DIR/${CHANGE}.sh" "$D/${PKG_NAME}_${CHANGE}.sh"
+  done
+}
+
 date-secs()
 {
   date '+%Y-%m-%d %H:%M:%S'
 }
 
 do-command()
+# Redirects all output to build-LABEL.log
 {
   local LABEL=$1
   shift
   local CMD=( ${*} )
   {
+    echo
     echo DO: $(date-secs) $LABEL START:
     show PWD LD_LIBRARY_PATH
 
@@ -142,14 +133,24 @@ do-command()
   } | tee $RECIPE_DIR/build-$LABEL.log
 }
 
+# Post-build stuff!
+do-command activate-sh do-activate-sh
+
 # Configure it!
 do-command configure do-configure
+
+if (( ${CONFIG_ONLY:-0} ))
+then
+  echo "configure-only: not running make."
+  echo "BUILD.SH STOP $( date '+%Y-%m-%d %H:%M:%S' )"
+  exit
+fi
 
 # Make it!
 echo   LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}
 export LD_LIBRARY_PATH=$CONDA_PREFIX/lib
 echo PWD=$PWD
-do-command make make -j 4
+do-command make make # -j 4
 
 # Install it!
 do-command install make install

@@ -1,0 +1,16 @@
+#!/bin/bash
+set -eu
+
+# GH CHECKOUT-R
+
+echo CHECKOUT R
+
+set -x
+pwd
+
+# time svn co https://svn.r-project.org/R/tags/R-4-4-3
+
+URL='http://web.cels.anl.gov/~woz/R-4-4-3.tgz'
+
+# Note this is the macOS time program:
+wget -q -O - $URL | /usr/bin/time -h tar xz

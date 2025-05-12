@@ -1,0 +1,11 @@
+#!/bin/bash
+set -eu
+
+# GH BUILD
+
+echo RUN BUILD
+
+set -x
+pwd
+
+./conda-build.sh ./R-4-4-3

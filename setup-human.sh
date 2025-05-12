@@ -1,6 +1,10 @@
 #!/bin/zsh
 set -eu
 
+# SETUP HUMAN
+# Setup conda packages for human interactive build
+#       using conda compilers
+
 zparseopts -D -E s=S
 
 SOLVER=()
@@ -21,6 +25,7 @@ PKGS=(
   # For shell issue:
   ncurses
   zlib
+  clangxx
 
   # For X11:
   # xorg-x11-proto-devel-cos6-x86_64
@@ -28,7 +33,14 @@ PKGS=(
   xorg-xorgproto
   xorg-libxt  # For X11/Intrinsic.h
   libiconv  # For iconv.h
+
+  # For Cairo
+  cairo
 )
 
-set -x
-conda install --yes -c conda-forge $SOLVER $PKGS
+(
+  set -x
+  conda install --yes -c conda-forge $SOLVER $PKGS
+)
+print
+print "REMEMBER to rehash!"

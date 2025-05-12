@@ -3,14 +3,14 @@
 
 {% set name = "emews-r-x" %}
 # See README for version meanings:
-{% set version = "2" %}
+{% set version = "6" %}
 
 package:
   name:    {{ name }}
   version: {{ version }}
 
 source:
-  # User needs to manually update this:
+  # R_SVN is exported by conda-build.sh
   path: {{ environ.get('R_SVN', 'UNSET_R_SVN') }}
 
 build:
@@ -19,6 +19,8 @@ build:
   # normal environment inheritance does not happen!
   script_env:
     - PLATFORM={{ environ.get('PLATFORM', 'UNSET_PLATFORM') }}
+    - CONFIG_ONLY={{ environ.get('CONFIG_ONLY', '0') }}
+    - GITHUB_ACTIONS
 
 # Remember to sync any dependency changes here with conda-install.sh
 requirements:
@@ -34,6 +36,9 @@ requirements:
     - xorg-xorgproto
     - xorg-libxt  # For X11/Intrinsic.h
     - libiconv  # For iconv.h
+    - cairo
+    - clangxx
+    # Try ncurses
 
   run:
     - libcurl
@@ -47,13 +52,16 @@ requirements:
     - xorg-xorgproto
     - xorg-libxt  # For X11/Intrinsic.h
     - libiconv  # For iconv.h
+    - cairo
+    # New 2025-04-07
+    - clangxx
 
 test:
+  files:
+    - ./meta-test.sh
   commands:
-    - echo
-    - echo "meta.yaml test commands:"
-    - which R Rscript
-    - R -e 'cat("R-SUCCESS:", 42, "\n")'
+    - pwd
+    - ./meta-test.sh
 
 about:
   home: https://github.com/emews/emews-r-base

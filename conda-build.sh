@@ -13,25 +13,27 @@ set -eu
 
 # Hard-coded for now- on other systems, we use community R packages
 # Also set in meta.yaml
-PLATFORM=${PLATFORM:-osx-arm64}
+export PLATFORM=${PLATFORM:-osx-arm64}
 
 help()
 {
   cat <<END
 
 Options:
-   -C configure-only
-
+   -S Settings:  Just reports startup settings and exits
+   -C Configure: Just runs configure, not make
 END
 }
 
-C=""
-zparseopts -D -E -F h=HELP C=C
+C="" S=""
+zparseopts -D -E -F h=HELP C=C S=S
 
 if (( ${#HELP} )) {
   help
   exit
 }
+
+if (( ${#C} )) export CONFIG_ONLY=1
 
 # Get this directory
 THIS=${0:A:h}
@@ -66,10 +68,24 @@ if [[ $PLATFORM =~ osx-* ]] {
 DATE_FMT_S="%D{%Y-%m-%d} %D{%H:%M:%S}"
 log()
 # General-purpose log line
-# You may set global LOG_LABEL to get a message prefix
 {
-  print ${(%)DATE_FMT_S} ${LOG_LABEL:-} ${*}
+  print ${(%)DATE_FMT_S} "conda-build.sh:" ${*}
 }
+
+if [[ ${GITHUB_ACTIONS:-0} == true ]]
+then
+  source ./enable-python.sh
+fi
+
+# Look up executable:
+PYTHON_EXE=( =python )
+# Get its directory:
+PYTHON_BIN=${PYTHON_EXE:h}
+
+# print LISTING
+# print PYTHON_EXE $PYTHON_EXE $PYTHON_BIN
+# ls $PYTHON_BIN
+# conda list
 
 # Check that the conda-build tool in use is in the
 #       selected Python installation
@@ -83,20 +99,11 @@ fi
 CONDA_BUILD_TOOL=( =conda-build )
 # Get its directory:
 TOOLDIR=${CONDA_BUILD_TOOL:h}
-# Look up executable:
-PYTHON_EXE=( =python )
-# Get its directory:
-PYTHON_BIN=${PYTHON_EXE:h}
 if [[ ${TOOLDIR} != ${PYTHON_BIN} ]] {
   log "conda-build is not in your python directory!"
   log "            this is probably wrong!"
   log "            run ./setup-conda.sh"
   return 1
-}
-
-if (( ${#C} )) {
-  log "configure-only: exit."
-  exit
 }
 
 # Backup the old log
@@ -105,6 +112,11 @@ log "LOG: $LOG"
 if [[ -f $LOG ]] {
   mv -v $LOG $LOG.bak
   print
+}
+
+if (( ${#S} )) {
+  log "settings-only: exit." | tee $LOG
+  return
 }
 
 {
@@ -118,6 +130,10 @@ if [[ -f $LOG ]] {
     conda env list
     print
 
+    # This purge-all is extremely important:
+    log "purge-all ..."
+    conda build purge-all
+
     BUILD_ARGS=(
       -c conda-forge
       --dirty
@@ -127,18 +143,20 @@ if [[ -f $LOG ]] {
       .
     )
 
-    set -x
-    # This purge-all is extremely important:
-    conda build purge-all
-
     # Build the package!
+    log "main build args: $BUILD_ARGS"
     conda build $BUILD_ARGS
   )
   log "CONDA BUILD: STOP: ${(%)DATE_FMT_S}"
 } |& tee $LOG
 print
-log "conda build succeeded."
+log "SUCCESS."
 print
+
+if (( ${CONFIG_ONLY:-0} )) {
+  log "configure-only: done."
+  return
+}
 
 # Look for success from meta.yaml:test:commands:
 # Output
@@ -176,3 +194,6 @@ checksum()
   log $T
   log "HASH:" $( checksum $PKG )
 ) | tee -a $LOG
+
+# This is mostly for GitHub Action step checking
+echo "CONDA-BUILD: SUCCESS" > $LOG
